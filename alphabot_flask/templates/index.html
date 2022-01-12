@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Comandi Alphabot</title>
+
+    <style>
+        #intestazione {
+            text-align: center;
+        }
+        
+        .pulsantone {
+            background-color: rgb(85, 179, 241);
+            margin: 0.5cm;
+            padding: 1cm;
+        }
+        
+        .stop {
+            display: block;
+            height: 160px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<form action="/" method="post">
+    <div>
+        <div id="intestazione">
+            <input class="pulsantone" type="submit" value="avanti" name="avanti">
+        </div>
+        <div id="intestazione">
+            <input class="pulsantone" type="submit" value="sinistra" name="sinistra">
+            <img src="./alphabot.jpeg" alt="" class="d-inline-block align-text-top">
+            <input class="pulsantone" type="submit" value="destra" name="destra">
+        </div>
+        <div id="intestazione">
+            <input class="pulsantone" type="submit" value="indietro" name="indietro">
+        </div>
+        <div id="intestazione">
+            <input class="stop" type="image" src="stop.jpg" value="stop" name="stop">
+        </div>
+    </div>
+    <div>
+        <input type="number" name="time">
+    </div>
+</form>
+</body>
+
+</html>
