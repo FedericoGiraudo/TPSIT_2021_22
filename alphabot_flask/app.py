@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request
+from crypt import methods
+from flask import Flask, render_template, request, redirect, url_for, make_response
 import time
 import RPi.GPIO as GPIO
+import sqlite3
+import string
+import random
 
 app = Flask(__name__)
 
-class AlphaBot(object):          #creo una classe Alphabot
-    
+class AlphaBot(object):          #creo una classe Alphabot   
     def __init__(self, in1=13, in2=12, ena=6, in3=21, in4=20, enb=26):
         self.IN1 = in1
         self.IN2 = in2
@@ -110,27 +113,89 @@ class AlphaBot(object):          #creo una classe Alphabot
 
 al=AlphaBot()
 
+length=20
+token = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length))
+
 @app.route("/", methods=['GET', 'POST'])
-def index():
+def login():
+    error = None
+    
     if request.method == 'POST':
-        print(request.form.get('avanti'))
+        username_c = request.cookies.get('username')
+        username = request.form['username']
+        password = request.form['password']
+        print(username,  password)
+        completion = validate(username, password)
+        if completion ==False:
+            error = 'Invalid Credentials. Please try again.'
+        else:  
+            print("entratooooooo")
+            if username_c==None:
+                resp = make_response(render_template('index.html'))
+                resp.set_cookie('username', username)
+                return resp  
+            return redirect(url_for('index')) 
+    return render_template('login.html', error=error)
+
+def validate(username, password):
+    completion = False
+    con = sqlite3.connect('./comandi.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Users")
+    rows = cur.fetchall()
+    for row in rows:
+        dbUser = row[0]
+        dbPass = row[1]
+        if dbUser==username:
+            completion=check_password(dbPass, password)
+    return completion
+
+def check_password(hashed_password, user_password):
+    return hashed_password == user_password
+
+@app.route(f"/{token}", methods=['GET', 'POST'])
+def index():
+    username_c = request.cookies.get('username') 
+    modifica = time.ctime()
+    print(modifica)
+    con = sqlite3.connect('./comandi.db')
+    cur = con.cursor()
+
+    if request.method == 'POST':
         if request.form.get('avanti') == 'avanti':
             al.forward(5)
+            comando='avanti'
             print("vai avanti")
+        elif request.form.get('stop') == 'stop':
+            al.stop()
+            comando='stop'
+            print("fermati")
         elif  request.form.get('indietro') == 'indietro':
             al.backward(5)
+            comando='indietro'
             print("vai indietro")          
         elif  request.form.get('destra') == 'destra':
             al.right(5)
+            comando='destra'
             print("vai a destra")        
         elif  request.form.get('sinistra') == 'sinistra':
             al.left(5)
-            print("vai a sinistra")          
+            comando='sinistra'
+            print("vai a sinistra")
+        elif request.form.get('invio') == 'invio':
+            nome=request.form.get('nome')
+            print(nome)     
         else:
             print("Unknown")
     elif request.method == 'GET':
         return render_template('index.html')
-    
-    return render_template("index.html")
+    print(f"INSERT INTO Modifiche(Username,modifica,comando) VALUES ('{username_c}','{modifica}', '{comando}')")
+    cur.execute(f"INSERT INTO Modifiche(Username,modifica,comando) VALUES ('{username_c}','{modifica}', '{comando}')")
+    con.commit()
+    return render_template('index.html')
 
-if __name__ == '__main__':   app.run(debug=True, host='192.168.0.122')
+    
+
+
+if __name__ == '__main__':   
+    app.run(debug=True, host="0.0.0.0")

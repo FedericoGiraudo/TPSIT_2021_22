@@ -2,8 +2,8 @@
 <html>
 
 <head>
+    </script>
     <title>Comandi Alphabot</title>
-
     <style>
         #intestazione {
             text-align: center;
@@ -16,34 +16,70 @@
         }
         
         .stop {
+            width: 120px;
+            height: 90px;
+            background-color: #FF0000;
+            background-image: url('stop.gif');
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
             display: block;
-            height: 160px;
-            width: 200px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
         }
     </style>
 </head>
 
-<form action="/" method="post">
-    <div>
+<body>
+    <!--nav bar-->
+    <ul>
+        <li>
+            <a class="active" href="#home">
+                <img src="alphabot_1.jpeg" alt="Mountains" width="100" height="67">
+            </a>
+        </li>
+        <li><a href="#news">Alphabot</a></li>
+    </ul>
+    <form method="post">
+
         <div id="intestazione">
             <input class="pulsantone" type="submit" value="avanti" name="avanti">
         </div>
         <div id="intestazione">
             <input class="pulsantone" type="submit" value="sinistra" name="sinistra">
-            <img src="./alphabot.jpeg" alt="" class="d-inline-block align-text-top">
+            <input class="stop" type="submit" value="stop" name="stop">
             <input class="pulsantone" type="submit" value="destra" name="destra">
         </div>
         <div id="intestazione">
             <input class="pulsantone" type="submit" value="indietro" name="indietro">
         </div>
-        <div id="intestazione">
-            <input class="stop" type="image" src="stop.jpg" value="stop" name="stop">
+        <div>
+            <p> Comandi complessi : </p>
+            <p> <input type=”text” name=”nome”> </p>
+            <p> <input type="submit" name="invio" value="invio"> </p>
         </div>
-    </div>
-    <div>
-        <input type="number" name="time">
-    </div>
-</form>
+
+    </form>
 </body>
 
 </html>
