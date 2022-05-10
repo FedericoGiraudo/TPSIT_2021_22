@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>pagina di calcolo</title>
+  </head>
+  <body>
+    <h1>inserimento stato</h1><br>
+    <form action="/social" method="post">
+      <input type="text" placeholder="stato" name="stato" value="{{
+        request.form.stato }}">
+      <input class="btn btn-default" type="submit" value="invio">
+    </form>
+    {% if errore %}
+        <p class="errore"><strong>Errore:</strong> {{ errore }}
+      {% endif %}
+    {% if output %}
+      <p class="output"><strong>Stato casuale: </strong> {{ output }}
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <style>   
+      #verde {
+        width: 40px;
+        height: 40px;
+        background: green;
+        border-radius: 50%;
+      }
+      #giallo {
+        width: 40px;
+        height: 40px;
+        background: yellow;
+        border-radius: 50%;
+      }
+      #rosso {
+        width: 40px;
+        height: 40px;
+        background: red;
+        border-radius: 50%;
+      }
+    </style>
+    <title>Semaforo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body> 
+    <div class="container">
+      <h1>inserire i tempi</h1><br>
+      <form action="/test" method="post">
+        <table>
+          <tr>
+            <td><div id="verde"></div></td>
+            <td><input type="text" placeholder="sem_temp_verde" name="temp_verde" value="{{
+              request.form.temp_verde }}"></td>
+          </tr>
+          <tr>
+            <td><div id="giallo"></div></td>
+            <td><input type="text" placeholder="temp_giallo" name="temp_giallo" value="{{
+              request.form.temp_giallo }}"></td>
+          </tr>
+          <tr>
+            <td><div id="rosso"></div></td>
+            <td><input type="text" placeholder="temp_rosso" name="temp_rosso" value="{{
+              request.form.temp_rosso }}"></td>
+          </tr>
+        </table>
+        <button class="btn btn-default" type="submit"  name="sp_sem" value="spegnimento semaforo"><br>
+        <button class="btn btn-default" type="submit"  name="rt_sem" value="riattivare semaforo"><br>
+        
+        <input class="btn btn-default" type="submit" value="invio">
+      </form>
+      <!--{% if output %}
+        <p class="output"><strong>Risultato: </strong> {{ output }}
+      {% endif %}-->
+    </div>
+  </body>
+</html>

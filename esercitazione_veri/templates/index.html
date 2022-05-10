@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <h1>inserire i dati</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Ip" name="ip" value="{{
+          request.form.ip }}">
+         <input type="text" placeholder="min" name="min" value="{{
+          request.form.min }}">
+          <input type="text" placeholder="max" name="max" value="{{
+            request.form.max }}">
+        
+        <input class="btn btn-default" type="submit" value="invio">
+        <input class="btn btn-default" type="submit" name="pl" value="pl">
+
+      </form>
+      {% if error %}
+        <p class="error"><strong>Stato: </strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>pagina di calcolo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <h1>inserire i dati</h1>
+      <br>
+      <form action="" method="post">
+        integrale definito o indefinito<br>
+        <input type="text" placeholder="funzione" name="funzione" value="{{
+          request.form.funzione }}">
+        <input type="text" placeholder="incognita" name="incognita" value="{{
+         request.form.incognita }}">
+        <br>Inserire gli estremi<br>
+        <input type="text" placeholder="estremo_max" name="estremo_max" value="{{
+          request.form.estremo_max }}">
+        <input type="text" placeholder="estremo_min" name="estremo_min" value="{{
+          request.form.estremo_min }}"><br>
+        
+        <input class="btn btn-default" type="submit" value="invio">
+      </form>
+      {% if output %}
+        <p class="output"><strong>Risultato: </strong> {{ output }}
+      {% endif %}
+    </div>
+  </body>
+</html>
